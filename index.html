@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BRFSadv</title>
+  <meta name="description" content="BRFSadv- Advocacia especializada em Direito Bancário. Consultoria, defesa do consumidor bancário, renegociação e mais." />
+  <link rel="icon" href="image/logo.png" />
+  <style>
+    /* -------------------------
+       Reset & base
+       ------------------------- */
+    :root{
+      --bg:#f5f5f6;
+      --card:#ffffff;
+      --muted:#8b8b8b;
+      --accent:#b19160; /* dourado suave */
+      --dark:#052823; /* verde escuro moderno */
+      --glass: rgba(5,40,35,0.9);
+      --radius:16px;
+      --shadow: 0 8px 30px rgba(10,10,10,0.12);
+      --soft-shadow: 0 6px 20px rgba(7,7,7,0.06);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#ffffff);
+      color:#0b2b26;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      font-size:16px;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* -------------------------
+       Layout helpers
+       ------------------------- */
+    .container{max-width:1200px;margin:0 auto;padding:0 28px}
+    .section{padding:72px 0}
+    .small{font-size:14px;color:var(--muted)}
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+    .row{display:flex;gap:24px;align-items:center}
+    .col{flex:1}
+    .card{background:var(--card);border-radius:12px;box-shadow:var(--soft-shadow);padding:22px}
+
+    /* -------------------------
+       Header / Nav
+       ------------------------- */
+    header{
+      position:fixed;left:0;right:0;top:0;height:78px;z-index:1000;
+      display:flex;align-items:center;
+      background:var(--dark);
+      box-shadow:0 10px 40px rgba(7,20,18,0.5);
+      border-bottom:1px solid rgba(255,255,255,0.02);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:46px;width:46px;border-radius:8px;background:#efefef;padding:6px;box-shadow:var(--soft-shadow)}
+    nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+    nav a{color:#e9f3f1;font-weight:600;opacity:0.95}
+    .cta{background:var(--accent);color:#072a24;padding:10px 16px;border-radius:10px;font-weight:700;box-shadow:var(--shadow)}
+    .nav-spacer{height:78px}
+
+    /* -------------------------
+       Hero
+       ------------------------- */
+    .hero{
+      min-height:640px;
+      display:flex;align-items:center;color:white;
+      background:
+        linear-gradient(90deg, rgba(5,40,35,0.85) 0%, rgba(5,40,35,0.68) 50%, rgba(5,40,35,0.6) 100%),
+        url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat;
+      position:relative;
+      padding:120px 0 80px;
+      overflow:hidden;
+    }
+    .hero .container{display:flex;align-items:center;gap:48px}
+    .hero-left{flex:0 0 640px}
+    .hero h1{font-size:44px;line-height:1.02;margin:0 0 18px;font-weight:800;letter-spacing:-0.02em}
+    .hero p.lead{max-width:520px;color:rgba(255,255,255,0.9);margin-bottom:26px}
+    .hero .hero-ctas{display:flex;gap:12px;align-items:center}
+    .btn-ghost{border:1px solid rgba(255,255,255,0.12);color:#fff;padding:12px 16px;border-radius:10px;background:transparent}
+    .hero-stats{display:flex;gap:24px;margin-top:28px}
+    .stat{background:rgba(255,255,255,0.04);padding:14px 18px;border-radius:12px}
+    .stat strong{display:block;font-size:20px}
+    .hero-right{flex:1;display:flex;justify-content:center;align-items:center;opacity:0.95}
+    .hero-image{width:420px;height:320px;border-radius:18px;background:#fff;box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .hero-image img{width:100%;height:100%;object-fit:cover;filter:grayscale(8%) contrast(92%)}
+
+    /* decorative diamond */
+    .diamond{
+      position:absolute;left:50%;transform:translateX(-50%);top:-18px;width:44px;height:44px;background:linear-gradient(180deg,transparent,var(--accent));clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);opacity:0.95;
+    }
+
+    /* -------------------------
+       About / two-col
+       ------------------------- */
+    .about{display:grid;grid-template-columns:420px 1fr;gap:36px;align-items:center}
+    .badge{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;background:rgba(177,145,96,0.12);color:var(--accent);font-weight:700}
+    .about h2{font-size:34px;margin:6px 0 12px}
+    .about p{color:var(--muted);line-height:1.75}
+
+    /* -------------------------
+       Services grid
+       ------------------------- */
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:28px}
+    .service{padding:28px;border-radius:10px;background:linear-gradient(180deg,#ffffff,#fbfbfb);box-shadow:var(--soft-shadow);text-align:center}
+    .service .icon{width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:-48px auto 18px;background:var(--dark);color:white;font-weight:700}
+    .service h4{margin:6px 0 10px}
+    .service p{color:var(--muted);font-size:14px}
+
+    /* -------------------------
+       Stats strip
+       ------------------------- */
+    .stats-strip{display:flex;gap:18px;justify-content:space-between;padding:28px;border-radius:14px;background:linear-gradient(90deg,rgba(6,30,27,0.02),#fff);box-shadow:var(--soft-shadow);margin-top:26px}
+    .stat-large{flex:1;text-align:center}
+    .stat-large strong{display:block;font-size:28px;color:var(--accent)}
+
+    /* -------------------------
+       Testimonials carousel
+       ------------------------- */
+    .testimonials{position:relative}
+    .t-cards{display:flex;gap:18px;overflow:hidden;padding:18px 0}
+    .t-card{min-width:320px;padding:18px;border-radius:10px;background:#fff;box-shadow:var(--soft-shadow)}
+    .t-card .stars{color:#f7b500;margin-bottom:8px}
+    .carousel-controls{position:absolute;top:50%;left:10px;right:10px;display:flex;justify-content:space-between;transform:translateY(-50%)}
+    .control{background:rgba(7,7,7,0.06);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+    /* -------------------------
+       Team slider
+       ------------------------- */
+    .team-wrap{padding:26px;background:linear-gradient(180deg,#f8faf8,#ffffff);border-radius:18px}
+    .team-slider{display:flex;gap:22px;overflow:hidden;padding:8px}
+    .member{background:#fff;border-radius:12px;padding:12px;text-align:center;min-width:220px;box-shadow:var(--soft-shadow)}
+    .member img{height:260px;width:200px;object-fit:cover;border-radius:12px}
+    .member h5{margin:10px 0 4px;font-weight:700}
+    .dots{display:flex;gap:8px;justify-content:center;margin-top:16px}
+    .dot{width:10px;height:10px;border-radius:50%;background:#ddd}
+
+    /* -------------------------
+       Footer
+       ------------------------- */
+    footer{background:linear-gradient(180deg,#072a24,#062020);color:#e9f3f1;padding:54px 0}
+    footer a{color:rgba(255,255,255,0.9)}
+    .footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+    .copy{opacity:0.8;margin-top:18px;font-size:14px}
+
+    /* -------------------------
+       Floating whatsapp
+       ------------------------- */
+    .whatsapp{
+      position:fixed;right:22px;bottom:22px;width:66px;height:66px;border-radius:50%;
+      background:linear-gradient(180deg,#06b24f,#04a33f);display:flex;align-items:center;justify-content:center;
+      box-shadow:0 16px 40px rgba(2,110,72,0.18);z-index:1200;cursor:pointer;
+    }
+    .whatsapp img{width:40px;height:40px}
+
+    /* -------------------------
+       Utilities & animations
+       ------------------------- */
+    .reveal{opacity:0;transform:translateY(16px) scale(.995);transition:all 720ms cubic-bezier(.12,.8,.15,1)}
+    .reveal.in-view{opacity:1;transform:none}
+    .fade{opacity:0;transition:opacity 900ms ease}
+    .fade.in-view{opacity:1}
+
+    /* responsive */
+    @media (max-width:1000px){
+      .about{grid-template-columns:1fr}
+      .hero{padding:100px 0}
+      .hero-left{flex:1}
+      .container{padding:0 18px}
+      nav ul{display:none}
+    }
+    @media (max-width:760px){
+      .services-grid{grid-template-columns:1fr}
+      .stats-strip{flex-direction:column;gap:12px}
+      .hero-image{width:320px;height:240px}
+    }
+
+    /* CountUp animation */
+    .counter {
+      font-weight: 800;
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="siteHeader" class="solid">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="image/logo.png" alt="logo" />
+        <div style="color:#e8f6f2">
+          <div style="font-weight:800">BRFSadv</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.75)">Advogados | Direito Bancário</div>
+        </div>
+      </div>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#sobre">Sobre Nós</a></li>
+          <li><a href="#equipe">Equipe</a></li>
+          <li><a href="#solucoes">Soluções</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#contato" class="cta">Falar com Especialista</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+  <div class="nav-spacer"></div>
+
+  <!-- Hero -->
+  <main id="inicio">
+    <section class="hero" aria-label="Hero">
+      <div class="diamond" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-left">
+          <div class="badge">ESPECIALISTAS • DIREITO BANCÁRIO</div>
+          <h1 class="reveal">Advocacia Especializada em Direito Bancário</h1>
+          <p class="lead reveal">Defendemos consumidores e empresas contra práticas abusivas de instituições financeiras. Experiência, resultados rápidos e estratégia jurídica com foco em ganhos reais.</p>
+
+          <div class="hero-ctas reveal">
+            <a class="cta" href="#contato">FALAR COM ESPECIALISTA</a>
+            <a class="btn-ghost" href="#sobre">SABER MAIS</a>
+          </div>
+
+          <div class="hero-stats reveal">
+            <div class="stat">
+              <strong class="counter" data-target="214000000">0</strong>
+              <span class="small">Reais recuperados</span>
+            </div>
+            <div class="stat">
+              <strong class="counter" data-target="12000">0</strong>
+              <span class="small">Clientes atendidos</span>
+            </div>
+            <div class="stat">
+              <strong class="counter" data-target="15">0</strong>
+              <span class="small">Anos de atuação</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-image reveal">
+            <img src="https://images.unsplash.com/photo-1559523164-0b2b8a4f1f6d?auto=format&fit=crop&w=1200&q=60" alt="Escritório" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="sobre" class="section">
+      <div class="container about">
+        <div class="card reveal">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1000&q=60" alt="Equipe formal" style="border-radius:10px;margin-bottom:14px;"/>
+          <p class="small">Fundado em 2009, o escritório BRFSadv é referência nacional em Direito Bancário. Atuamos em defesa de clientes contra abusos contratuais, cobranças indevidas, execução fiscal e renegociação de passivos.</p>
+        </div>
+
+        <div class="reveal">
+          <div class="badge">REFERÊNCIA NACIONAL</div>
+          <h2>Referência Nacional em Direito Bancário</h2>
+          <p>Nosso time une expertise técnica e posicionamento estratégico. Oferecemos atendimento personalizado, estudo financeiro detalhado e ação judicial com foco em resultados rápidos e maximização de valores recuperados.</p>
+
+          <div class="services-grid">
+            <div class="service reveal">
+              <div class="icon">👥</div>
+              <h4>Defesa do Executado</h4>
+              <p>Atuação em execuções judiciais, ação rescisória e medidas preventivas para proteger bens e negociar condições justas.</p>
+            </div>
+            <div class="service reveal">
+              <div class="icon">🏢</div>
+              <h4>Gestão de Passivos Empresariais</h4>
+              <p>Renegociação de dívidas, revisão contratual e estratégias para recuperação financeira de empresas.</p>
+            </div>
+            <div class="service reveal">
+              <div class="icon">💳</div>
+              <h4>Passivos para Pessoas Físicas</h4>
+              <p>Revisão de contrato de financiamento, defesa contra cobranças indevidas e recuperação de valores.</p>
+            </div>
+          </div>
+
+          <div class="stats-strip reveal" style="margin-top:20px">
+            <div class="stat-large">
+              <strong class="counter" data-target="214000000">0</strong>
+              <div class="small">Reais revisados</div>
+            </div>
+            <div class="stat-large">
+              <strong class="counter" data-target="12000">0</strong>
+              <div class="small">Clientes satisfeitos</div>
+            </div>
+            <div class="stat-large">
+              <strong class="counter" data-target="15">0</strong>
+              <div class="small">Anos de atuação</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solutions -->
+    <section id="solucoes" class="section" style="background:linear-gradient(180deg,#f3f6f4,#ffffff)">
+      <div class="container center">
+        <h2 class="reveal">Nossas soluções</h2>
+        <p class="small reveal">Veja como os Advogados Bancários da BRFSadv podem te ajudar</p>
+
+        <div style="margin-top:28px" class="reveal">
+          <div class="services-grid" style="grid-template-columns:repeat(3,1fr);">
+            <div class="service">
+              <div class="icon">🛡️</div>
+              <h4>Fraudes Bancárias</h4>
+              <p>Investigação e responsabilização das instituições por transações fraudulentas.</p>
+            </div>
+            <div class="service">
+              <div class="icon">🔍</div>
+              <h4>Revisão de Contratos</h4>
+              <p>Revisão de juros, tarifas e cláusulas abusivas com célere ação judicial quando necessário.</p>
+            </div>
+            <div class="service">
+              <div class="icon">📈</div>
+              <h4>Superendividamento</h4>
+              <p>Planos de reestruturação com foco em parcelas que respeitem a renda do consumidor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="depoimentos" class="section testimonials">
+      <div class="container">
+        <div class="center reveal">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Reviews" style="height:58px;opacity:0.95"/>
+          <h2>Escritório excelente segundo avaliações do Google</h2>
+          <p class="small">Confira alguns depoimentos de nossos clientes</p>
+        </div>
+
+        <div class="t-cards" id="testiTrack" aria-live="polite" style="margin-top:18px">
+          <!-- 10 depoimentos -->
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Carlos Mendes">
+              <div>
+                <strong>Carlos Mendes</strong>
+                <div class="small">2 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Conseguiram anular uma dívida de R$80 mil com o banco. Profissionais extremamente competentes!</p>
+          </article>
+
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Ana Paula">
+              <div>
+                <strong>Ana Paula</strong>
+                <div class="small">3 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Atendimento humanizado e transparente. Me explicaram cada passo do processo. Recomendo!</p>
+          </article>
+
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Roberto Silva">
+              <div>
+                <strong>Roberto Silva</strong>
+                <div class="small">4 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Empresa me ajudou a renegociar dívidas com juros abusivos. Hoje estou com minha vida financeira em dia.</p>
+          </article>
+
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Mariana Costa">
+              <div>
+                <strong>Mariana Costa</strong>
+                <div class="small">5 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Excelente escritório! Me recuperaram R$45 mil em cobranças indevidas. Muito obrigada!</p>
+          </article>
+
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Fernando Almeida">
+              <div>
+                <strong>Fernando Almeida</strong>
+                <div class="small">6 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Profissionais sérios, éticos e muito eficientes. Resolveram meu problema em menos de 2 meses.</p>
+          </article>
+
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Juliana Ribeiro">
+              <div>
+                <strong>Juliana Ribeiro</strong>
+                <div class="small">7 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Me senti segura do início ao fim. Eles realmente se importam com o cliente.</p>
+          </article>
+
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Ricardo Neves">
+              <div>
+                <strong>Ricardo Neves</strong>
+                <div class="small">8 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Conseguiram suspender uma execução judicial contra minha empresa. Salvaram meu negócio!</p>
+          </article>
+
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Patrícia Lima">
+              <div>
+                <strong>Patrícia Lima</strong>
+                <div class="small">9 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Trabalho impecável. Recuperaram valores que eu já tinha dado como perdidos.</p>
+          </article>
+
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Eduardo Martins">
+              <div>
+                <strong>Eduardo Martins</strong>
+                <div class="small">10 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Atendimento rápido e eficaz. Recomendo a todos que enfrentam problemas com bancos.</p>
+          </article>
+
+          <article class="t-card">
+            <div style="display:flex;align-items:center;gap:14px">
+              <img src="https://images.unsplash.com/photo-1586287011575-a23134f797f9?auto=format&fit=crop&w=100&q=60" width="46" height="46" style="border-radius:50%" alt="Camila Souza">
+              <div>
+                <strong>Camila Souza</strong>
+                <div class="small">11 meses atrás</div>
+              </div>
+            </div>
+            <div class="stars" style="margin-top:12px">★★★★★</div>
+            <p class="small" style="margin-top:8px">Me ajudaram a renegociar meu financiamento com juros justos. Agora consigo pagar sem sufoco.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="equipe" class="section">
+      <div class="container">  
+          <div class="col reveal">
+            <h2>Conheça nosso time de especialistas</h2>
+            <p class="small">Os especialistas na BRFSadv são profissionais em quem você pode confiar. Localizados em Franca - SP, nossa equipe está pronta para solucionar suas questões de Direito Bancário.</p>
+          </div>
+          <div class="col team-wrap reveal">
+            <div class="team-slider" id="teamSlider">
+              <div class="member">
+                <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=800&q=60" alt="Luiz Guedes">
+                <h5>Dr. Luiz Guedes</h5>
+                <div class="small muted">Sócio Fundador</div>
+              </div>
+              <div class="member">
+                <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&q=60" alt="Diego Cruz">
+                <h5>Dr. Diego Cruz</h5>
+                <div class="small muted">Sócio Fundador</div>
+              </div>
+              <div class="member">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=60" alt="Murilo Antunes">
+                <h5>Murilo Antunes</h5>
+                <div class="small muted">Diretor Comercial</div>
+              </div>
+              <div class="member">
+                <img src="https://images.unsplash.com/photo-1545996124-7c0e69a3b8d1?auto=format&fit=crop&w=800&q=60" alt="João Coelho">
+                <h5>Dr. João Coelho</h5>
+                <div class="small muted">Sócio</div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- Why choose -->
+    <section class="section" style="background:linear-gradient(180deg,#ffffff,#f7faf7)">
+      <div class="container">
+        <div class="center reveal">
+          <h2>Por que somos Advogados Bancários diferenciados</h2>
+          <div style="height:10px"></div>
+        </div>
+
+        <div class="services-grid reveal" style="margin-top:22px">
+          <div class="card">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div style="width:64px;height:64px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-weight:800">🏆</div>
+              <div>
+                <h4>Excelência constante</h4>
+                <p class="small muted">Atualização contínua, busca por aperfeiçoamento e foco em técnicas jurídicas comprovadas.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div style="width:64px;height:64px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-weight:800">🤝</div>
+              <div>
+                <h4>Atendimento personalizado</h4>
+                <p class="small muted">Cada caso tratado com estratégia própria e comunicação clara com o cliente.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div style="width:64px;height:64px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-weight:800">📊</div>
+              <div>
+                <h4>Resultados com impacto</h4>
+                <p class="small muted">Foco em recuperação econômica e redução de passivos por meio de soluções práticas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contato" class="section">
+      <div class="container">
+        <div class="row" style="align-items:flex-start">
+          <div class="col card reveal">
+            <h3>Fale com um especialista</h3>
+            <p class="small muted">Agende uma conversa sem compromisso — avaliamos seu caso e indicamos o melhor caminho.</p>
+
+            <form id="contactForm" style="margin-top:18px;display:grid;gap:12px">
+              <input required name="name" placeholder="Seu nome" style="padding:12px;border-radius:10px;border:1px solid #ececec" />
+              <input required name="email" placeholder="Seu e-mail" style="padding:12px;border-radius:10px;border:1px solid #ececec" />
+              <input required name="phone" placeholder="Telefone (WhatsApp)" style="padding:12px;border-radius:10px;border:1px solid #ececec" />
+              <textarea name="message" placeholder="Descreva brevemente seu caso" rows="5" style="padding:12px;border-radius:10px;border:1px solid #ececec"></textarea>
+              <div style="display:flex;gap:12px;align-items:center">
+                <button class="cta" type="submit">ENVIAR MENSAGEM</button>
+                <div class="small muted">ou agende diretamente via WhatsApp</div>
+              </div>
+              <div id="contactSuccess" style="display:none;color:green;font-weight:700;margin-top:8px">Mensagem enviada! Entraremos em contato em breve.</div>
+            </form>
+          </div>
+
+          <div class="col reveal">
+            <div class="card">
+              <h4>Contato</h4>
+              <p class="small muted">Av. Exemplo, 1234 — Centro, Franca / SP<br/>Telefone: (16) 99999-9999<br/>Email: contato@guedescruz.com</p>
+              <div style="height:18px"></div>
+              <iframe title="mapa" src="https://www.google.com/maps?q=franca+sp&output=embed" style="width:100%;height:220px;border:0;border-radius:10px"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img src="image/logo.png" alt="logo" style="height:48px;border-radius:8px;background:#fff;padding:6px" />
+          <div class="copy">BRFSadv</div>
+        </div>
+        <div>
+          <h4>Serviços</h4>
+          <ul style="list-style:none;padding:0;margin-top:8px">
+            <li><a href="#solucoes">Revisão Contratual</a></li>
+            <li><a href="#equipe">Equipe</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Redes</h4>
+          <ul style="list-style:none;padding:0;margin-top:8px">
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Google Business</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;flex-wrap:wrap">
+        <div class="muted">© <span id="year"></span> BRFSadv. Todos os direitos reservados.</div>
+        <div class="muted">Desenvolvido por <strong>Caio Macario</strong></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Whatsapp floating -->
+  <div class="whatsapp" role="button" id="whatsBtn" aria-label="WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="whatsapp" />
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    /* ================
+       Small interactive behaviors and animations
+       ================ */
+
+    // Header: sempre escuro (já fixado no HTML com classe 'solid')
+
+    // Animação de contagem
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 2000;
+        const stepTime = 20;
+        const steps = Math.ceil(duration / stepTime);
+        const increment = target / steps;
+        let current = 0;
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            counter.textContent = formatNumber(target);
+            clearInterval(timer);
+          } else {
+            counter.textContent = formatNumber(Math.ceil(current));
+          }
+        }, stepTime);
+      });
+    }
+
+    function formatNumber(num) {
+      if (num >= 1000000) return (num / 1000000).toFixed(0) + 'M';
+      if (num >= 1000) return (num / 1000).toFixed(0) + 'k';
+      return num;
+    }
+
+    // reveal on scroll (IntersectionObserver)
+    const reveals = document.querySelectorAll('.reveal, .fade');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add('in-view');
+          if(e.target.classList.contains('hero-left') || e.target.closest('.stats-strip')){
+            setTimeout(animateCounters, 300);
+          }
+        }
+      })
+    }, {threshold:0.12});
+    reveals.forEach(r => obs.observe(r));
+
+    // Testimonials carousel (manual only)
+    const testTrack = document.getElementById('testiTrack');
+    let tIndex = 0;
+    function showTestimonial(i){
+      const cards = testTrack.querySelectorAll('.t-card');
+      const w = cards[0].offsetWidth + 18;
+      testTrack.style.transform = 'translateX('+ ( - (w * i)) +'px)';
+    }
+    document.getElementById('prevT').addEventListener('click', ()=>{ tIndex = Math.max(0, tIndex-1); showTestimonial(tIndex) });
+    document.getElementById('nextT').addEventListener('click', ()=>{ const max = testTrack.querySelectorAll('.t-card').length - 1; tIndex = Math.min(max, tIndex+1); showTestimonial(tIndex) });
+
+    // REMOVIDO o setInterval de auto-avanço dos depoimentos
+
+    // Team slider with dots (mantido como estava, mas ajustado)
+    const teamSlider = document.getElementById('teamSlider');
+    const teamMembers = teamSlider.querySelectorAll('.member');
+    const teamDotsContainer = document.createElement('div');
+    teamDotsContainer.id = 'teamDots';
+    teamDotsContainer.className = 'dots';
+    for(let i=0; i<teamMembers.length; i++){
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      if(i===0) dot.style.background = '#333';
+      teamDotsContainer.appendChild(dot);
+    }
+    document.querySelector('.team-wrap').appendChild(teamDotsContainer);
+    const dots = teamDotsContainer.querySelectorAll('.dot');
+
+    function showTeam(i){
+      const w = teamMembers[0].offsetWidth + 22;
+      teamSlider.style.transform = 'translateX('+ ( - (w * i)) +'px)';
+      dots.forEach(d => d.style.background = '#ddd');
+      if(dots[i]) dots[i].style.background = '#333';
+    }
+    dots.forEach((d,i)=> d.addEventListener('click', ()=> { teamIndex = i; showTeam(i) }));
+    let teamIndex = 0;
+    setInterval(()=> {
+      teamIndex = (teamIndex + 1) % teamMembers.length;
+      showTeam(teamIndex);
+    },4000);
+
+    // contact form fake submit
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('contactSuccess');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      success.style.display = 'block';
+      setTimeout(()=> {
+        success.style.display = 'none';
+        form.reset();
+      }, 2500);
+    });
+
+    // whatsapp button
+    const wbtn = document.getElementById('whatsBtn');
+    const phone = '5516999999999';
+    wbtn.addEventListener('click', ()=> {
+      const text = encodeURIComponent('Olá, quero falar com um especialista sobre meu caso bancário.');
+      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    });
+
+    // set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth anchor scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const hash = a.getAttribute('href');
+        if(hash.length > 1){
+          e.preventDefault();
+          const el = document.querySelector(hash);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+
+    // Accessibility
+    document.querySelectorAll('.control').forEach(c => c.tabIndex = 0);
+
+    // initial show
+    setTimeout(()=> { showTestimonial(0); showTeam(0); }, 300);
+  </script>
+</body>
+</html>
